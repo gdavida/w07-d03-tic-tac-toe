@@ -5,3 +5,9 @@
 .hidden {
   display: none;
 }
+
+/*more squarish just for devt purposes, will style diff/better later*/
+.board-tile {
+	padding: 10px 20px;
+	margin:5px;
+}

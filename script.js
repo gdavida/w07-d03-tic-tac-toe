@@ -7,6 +7,7 @@ window.addEventListener("load", setUpPage);
 // DECLARED VARIABLES FOR ALL IDs
 function setUpPage () {
 
+var boardTiles = document.getElementsByClassName("board-tile");
 
 var xScore = document.getElementById("x-Score");
 var oScore = document.getElementById("o-Score");
@@ -50,17 +51,10 @@ function playGame () {
 }
 // loop over board-tile class to add eventListener
 //  !!!!
-// if there is an onclick on one of these then call the yourMove function on that element
-tile11.addEventListener("click", yourMove);
-tile12.addEventListener("click", yourMove);
-tile13.addEventListener("click", yourMove);
-tile21.addEventListener("click", yourMove);
-tile22.addEventListener("click", yourMove);
-tile23.addEventListener("click", yourMove);
-tile31.addEventListener("click", yourMove);
-tile32.addEventListener("click", yourMove);
-tile33.addEventListener("click", yourMove);
-resetButton.addEventListener("click", reset);
+
+	for (i = 0; i < boardTiles.length; i++) {
+		boardTiles[i].addEventListener("click", yourMove);
+	}
 
 // STRING TO ASSOCIATE THE PLAYERS LETTER WITH POSITION THROUGH POSSIBLE WINNING LINE
 
@@ -83,38 +77,38 @@ function yourMove() {
 
 	// assigning the letter of whoseTurn to line that is possible to win at 
 	if (this === tile11) {
-		r1 = r1 + whoseTurn;
-		c1 = c1 + whoseTurn;
-		d1 = d1 + whoseTurn;
+		r1 += whoseTurn;
+		c1 +=whoseTurn;
+		d1 += whoseTurn;
 	} else if (this === tile12) {
-		r1 = r1 + whoseTurn;
-		c2 = c2 + whoseTurn;
+		r1 += whoseTurn;
+		c2 += whoseTurn;
 	} else if (this === tile13) {
-		r1 = r1 + whoseTurn;
-		c3 = c3 + whoseTurn;
-		d2 = d2 + whoseTurn;
+		r1 += whoseTurn;
+		c3 += whoseTurn;
+		d2 += whoseTurn;
 	} else if (this === tile21) {
-		r2 = r2 + whoseTurn;
-		c1 = c1 + whoseTurn;
+		r2 += whoseTurn;
+		c1 += whoseTurn;
 	} else if (this === tile22) {
-		r2 = r2 + whoseTurn;
-		c2 = c2 + whoseTurn;
-		d1 = d1 + whoseTurn;
-		d2 = d2 + whoseTurn;
+		r2 += whoseTurn;
+		c2 += whoseTurn;
+		d1 += whoseTurn;
+		d2 += whoseTurn;
 	} else if (this === tile23) {
-		r2 = r2 + whoseTurn;
-		c3 = c3 + whoseTurn;
+		r2 += whoseTurn;
+		c3 += whoseTurn;
 	} else if (this === tile31) {
-		r3 = r3 + whoseTurn;
-		c1 = c1 + whoseTurn;
-		d2 = d2 + whoseTurn;
+		r3 += whoseTurn;
+		c1 += whoseTurn;
+		d2 += whoseTurn;
 	} else if (this === tile32) {
-		r3 = r3 + whoseTurn;
-		c2 = c2 + whoseTurn;
+		r3 += whoseTurn;
+		c2 += whoseTurn;
 	} else if (this === tile33) {
-		r3 = r3 + whoseTurn;
-		c3 = c3 + whoseTurn;
-		d1 = d1 + whoseTurn;
+		r3 += whoseTurn;
+		c3 += whoseTurn;
+		d1 += whoseTurn;
 	}
 
 	checkForWinner();
@@ -163,7 +157,6 @@ function checkForWinner() {
 		 	// game ends
 		 	if (whoseTurn === "X") {
 		 		alert("X WON");
-
 		 		playerXWins.classList = "visible";
 		 	} else{
 		 		alert("O WON");
@@ -174,21 +167,6 @@ function checkForWinner() {
 		switchTurns();
 }
 
-function reset() {
-	playGame();
-	newGamePrompt.classList = "hidden";
-	moveCount = 1;
-	var r1 = "";
-	var r2 = "";
-	var r3 = "";
-
-	var d1 = "";
-	var d2 = "";
-
-	var c1 = "";
-	var c2 = "";
-	var c3 = "";
-}
 
 
 
@@ -203,3 +181,8 @@ function reset() {
 
 
 
+
+function reset() {
+	moveCount = 1;
+	setUpPage();
+}

@@ -2,12 +2,11 @@ window.addEventListener("load", setUpPage);
 // 
 //  THIS NEEDS TO HOLD ALL THE THINGS THAT YOU NEED TO LOAD RIGHT AWAY
 
-function setUpPage () {
-
-
 // still have to search DOM for the ID
 // var el = document.getElementById("header-1");
 // DECLARED VARIABLES FOR ALL IDs
+function setUpPage () {
+
 
 var xScore = document.getElementById("x-Score");
 var oScore = document.getElementById("o-Score");
@@ -47,6 +46,8 @@ var moveCount = 1;
 // 
 // at start of game all outcome messages should be hidden!!
 
+function playGame () {
+}
 // loop over board-tile class to add eventListener
 //  !!!!
 // if there is an onclick on one of these then call the yourMove function on that element
@@ -59,20 +60,21 @@ tile23.addEventListener("click", yourMove);
 tile31.addEventListener("click", yourMove);
 tile32.addEventListener("click", yourMove);
 tile33.addEventListener("click", yourMove);
-
+resetButton.addEventListener("click", reset);
 
 // STRING TO ASSOCIATE THE PLAYERS LETTER WITH POSITION THROUGH POSSIBLE WINNING LINE
-var r1 = "";
-var r2 = "";
-var r3 = "";
 
-var d1 = "";
-var d2 = "";
 
-var c1 = "";
-var c2 = "";
-var c3 = "";
+	var r1 = "";
+	var r2 = "";
+	var r3 = "";
 
+	var d1 = "";
+	var d2 = "";
+
+	var c1 = "";
+	var c2 = "";
+	var c3 = "";
 
 // This function changes the innerhtml of the tile box into the letter of who evers turn it is, then adjust's the turn to indicate it is the next person's turn
 function yourMove() {
@@ -148,8 +150,6 @@ function nextPlayer() {
 }
 
 function checkForWinner() {
-
-
 	var winningLine = whoseTurn + whoseTurn + whoseTurn
 
 	if (r1 === winningLine ||
@@ -163,6 +163,7 @@ function checkForWinner() {
 		 	// game ends
 		 	if (whoseTurn === "X") {
 		 		alert("X WON");
+
 		 		playerXWins.classList = "visible";
 		 	} else{
 		 		alert("O WON");
@@ -174,19 +175,31 @@ function checkForWinner() {
 }
 
 function reset() {
-	
+	playGame();
+	newGamePrompt.classList = "hidden";
+	moveCount = 1;
+	var r1 = "";
+	var r2 = "";
+	var r3 = "";
+
+	var d1 = "";
+	var d2 = "";
+
+	var c1 = "";
+	var c2 = "";
+	var c3 = "";
 }
 
 
 
 
 
-
+}
 
 
 
   // initialize whatever variables you need and add your event listeners
   // you can (but probably shouldn't) define functions inside this function
-};
+
 
 

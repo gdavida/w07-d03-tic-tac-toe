@@ -35,6 +35,8 @@ var tile31 = document.getElementById("tile-3-1");
 var tile32 = document.getElementById("tile-3-2");
 var tile33 = document.getElementById("tile-3-3");
 
+var resetButton = document.getElementById('reset-button');
+
 
 
 // like a switch variable to be reassigned after each turn to the next person
@@ -43,7 +45,7 @@ var whoseTurn = "X";
 var moveCount = 1;
 // 
 // 
-
+// at start of game all outcome messages should be hidden!!
 
 // loop over board-tile class to add eventListener
 //  !!!!
@@ -59,23 +61,76 @@ tile32.addEventListener("click", yourMove);
 tile33.addEventListener("click", yourMove);
 
 
+// STRING TO ASSOCIATE THE PLAYERS LETTER WITH POSITION THROUGH POSSIBLE WINNING LINE
+var r1 = "";
+var r2 = "";
+var r3 = "";
+
+var d1 = "";
+var d2 = "";
+
+var c1 = "";
+var c2 = "";
+var c3 = "";
+
 
 // This function changes the innerhtml of the tile box into the letter of who evers turn it is, then adjust's the turn to indicate it is the next person's turn
 function yourMove() {
+	this.innerHTML = whoseTurn;
+
+
+	// assigning the letter of whoseTurn to line that is possible to win at 
+	if (this === tile11) {
+		r1 = r1 + whoseTurn;
+		c1 = c1 + whoseTurn;
+		d1 = d1 + whoseTurn;
+	} else if (this === tile12) {
+		r1 = r1 + whoseTurn;
+		c2 = c2 + whoseTurn;
+	} else if (this === tile13) {
+		r1 = r1 + whoseTurn;
+		c3 = c3 + whoseTurn;
+		d2 = d2 + whoseTurn;
+	} else if (this === tile21) {
+		r2 = r2 + whoseTurn;
+		c1 = c1 + whoseTurn;
+	} else if (this === tile22) {
+		r2 = r2 + whoseTurn;
+		c2 = c2 + whoseTurn;
+		d1 = d1 + whoseTurn;
+		d2 = d2 + whoseTurn;
+	} else if (this === tile23) {
+		r2 = r2 + whoseTurn;
+		c3 = c3 + whoseTurn;
+	} else if (this === tile31) {
+		r3 = r3 + whoseTurn;
+		c1 = c1 + whoseTurn;
+		d2 = d2 + whoseTurn;
+	} else if (this === tile32) {
+		r3 = r3 + whoseTurn;
+		c2 = c2 + whoseTurn;
+	} else if (this === tile33) {
+		r3 = r3 + whoseTurn;
+		c3 = c3 + whoseTurn;
+		d1 = d1 + whoseTurn;
+	}
+
+	checkForWinner();
+}
+
+
+function switchTurns() {
 	if (whoseTurn === "X") {
 		whoseTurn = "O";
 	} else if (whoseTurn === "O") {
 		whoseTurn = "X";
 	}
 	this.removeEventListener("click", yourMove);
-	this.innerHTML = whoseTurn;
-//checkForWin();
-	nextPlayer();
 }
 
 
 
-//  IF IT IS X'S TURN TO GO... ready message for o hidden and for x visible
+//  IF IT IS X'S TURN TO GO... ready message for o hidden and for x visible, 
 function nextPlayer() {
 	if (moveCount <= 9) {
 		if (whoseTurn === "X") {
@@ -87,14 +142,43 @@ function nextPlayer() {
 		}
 		moveCount += 1;
 	} else {
-		// prompt for the game message result to pop up. prsumably cats game else it would have been finished before the end? not necessarily. Well yes because the prompt for the winner comes before next player is called!
+		tieGame.classList = "visible";
 	}
 
 }
 
 function checkForWinner() {
-	// add logic to check if the inner html of whatever winning combos match that player's letter to get a winning line and print outcome message/end game
+
+
+	var winningLine = whoseTurn + whoseTurn + whoseTurn
+
+	if (r1 === winningLine ||
+		 r2 === winningLine ||
+		 r3 === winningLine ||
+		 d1 === winningLine ||
+		 d2 === winningLine ||
+		 c1 === winningLine ||
+		 c2 === winningLine ||
+		 c3 === winningLine) {
+		 	// game ends
+		 	if (whoseTurn === "X") {
+		 		alert("X WON");
+		 		playerXWins.classList = "visible";
+		 	} else{
+		 		alert("O WON");
+		 		playerOWins.classList = "visible";
+		 	}
+		 // else move on and finish the game
+	} else nextPlayer();
+		switchTurns();
 }
+
+function reset() {
+	
+}
+
+
+
 
 
 
